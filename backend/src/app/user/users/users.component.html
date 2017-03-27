@@ -1,0 +1,64 @@
+<md-card class="datatable-card">
+  <div *ngIf="errorMessage" class="l-pad-top-1 l-pad-bottom-1 alert is-critical">{{errorMessage}}</div>
+  <smd-datatable
+      [models]="models"
+      [paginated]="true"
+      [paginatorRanges]="[25, 50, 100]"
+      [counts]="modelCounts"
+      (pageChange)="onPageChange($event)"
+      [responsive]="responsive">
+
+    <smd-datatable-header
+        [enableFilter]="true"
+        filterLabel="Search...">
+      <smd-datatable-action-button (onClick)="addItem($event)" label="Add" icon="add"></smd-datatable-action-button>
+
+      <smd-datatable-contextual-button (onClick)="editItem($event)" icon="edit"
+                                       [minimunSelected]="1" [maxSelected]="1"
+                                       mdTooltip="Edit the selected element"></smd-datatable-contextual-button>
+      <smd-datatable-contextual-button (onClick)="removeItems($event)" icon="delete"
+                                       [minimunSelected]="1"
+                                       mdTooltip="Delete the element"></smd-datatable-contextual-button>
+      <smd-datatable-contextual-button icon="search"></smd-datatable-contextual-button>
+    </smd-datatable-header>
+
+    <smd-datatable-column title="Avatar" field="avatar" titleTooltip="User Avatar">
+      <template let-model="data">
+        <div mdTooltip="Change profile image" (click)="changeAvatar(model)"
+             class="user-avatar user-avatar-small user-avatar-allow-edit"><img
+            *ngIf="model.avatar" [src]="model.avatar.media.name|thumbnail: 'thumbnail_150'"/></div>
+      </template>
+    </smd-datatable-column>
+
+    <smd-datatable-column title="Username" field="username" sortable="true"
+                          titleTooltip="Username"></smd-datatable-column>
+
+    <smd-datatable-column title="Email" field="email" sortable="true"></smd-datatable-column>
+
+    <smd-datatable-column title="Roles" field="roles" sortable="true">
+      <template let-model="data">
+        <ul class="user-roles">
+          <li *ngFor="let role of model.roles">
+            {{role.name}}
+          </li>
+        </ul>
+      </template>
+    </smd-datatable-column>
+
+    <smd-datatable-column title="Created" field="createdAt" sortable="true"
+                          [sortFn]="_sortByBirthDate"
+                          [filterFn]="_filterByBirthDate">
+      <template let-model="data">
+        {{model.createdAt | date:'dd/MM/yyyy, hh:mm:ss a'}}
+      </template>
+    </smd-datatable-column>
+    <smd-datatable-column title="Updated" field="updatedAt" sortable="true"
+                          [sortFn]="_sortByBirthDate"
+                          [filterFn]="_filterByBirthDate">
+      <template let-model="data">
+        {{model.updatedAt | date:'dd/MM/yyyy, hh:mm:ss a'}}
+      </template>
+    </smd-datatable-column>
+
+  </smd-datatable>
+</md-card>

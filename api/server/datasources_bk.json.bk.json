@@ -1,0 +1,32 @@
+{
+  "db": {
+    "host": "ds145379.mlab.com",
+    "port": 45379,
+    "database": "findeo",
+    "password": "test",
+    "name": "db",
+    "user": "test",
+    "connector": "mongodb"
+  },
+  "media": {
+    "name": "media",
+    "connector": "loopback-component-storage",
+    "provider": "filesystem",
+    "root": "./server/storage",
+    "allowedContentTypes": [
+      "image/jpg",
+      "image/jpeg",
+      "image/png",
+      "image/gif",
+      "image/tiff",
+      "application/pdf",
+      "application/x-pdf",
+      "application/acrobat",
+      "applications/vnd.pdf",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "text/plain"
+    ],
+    "maxFileSize": 20000000
+  }
+}

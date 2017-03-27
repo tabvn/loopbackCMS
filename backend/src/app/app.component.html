@@ -1,0 +1,60 @@
+<md-sidenav-container [class.app-primary]="true">
+
+  <md-sidenav #sidenav mode="side" class="app-sidenav">
+    <md-toolbar>
+      <span>Menu</span>
+      <span class="app-toolbar-filler"></span>
+    </md-toolbar>
+
+    <div class="app-navigation">
+      <nav adminElement>
+        <h3>Content</h3>
+        <ul>
+          <li><a adminElement routerLink="/content" routerLinkActive="active">Nodes</a></li>
+        </ul>
+      </nav>
+
+      <nav adminElement>
+        <h3>People</h3>
+        <ul>
+          <li><a adminElement routerLink="/users" routerLinkActive="active">Users</a></li>
+        </ul>
+      </nav>
+      <nav adminElement>
+        <h3>Structure</h3>
+        <ul>
+          <li><a adminElement routerLink="/taxonomy" routerLinkActive="active">Taxonomy</a></li>
+        </ul>
+      </nav>
+    </div>
+
+  </md-sidenav>
+
+  <md-toolbar color="primary">
+    <button md-button class="app-menu-button" (click)="sidenav.toggle()">
+      <i class="material-icons">menu</i>
+    </button>
+    <span class="title">{{title}}</span>
+    <span class="app-toolbar-filler"></span>
+    <span (click)="updateCurrentUserAvatar()" class="user-avatar" *ngIf="(auth.currentUser$|async)"><img
+        *ngIf="auth.getCurrentUserAvatar()"
+        [src]="auth.getCurrentUserAvatar()|thumbnail: 'thumbnail_150'"/></span>
+    <button *ngIf="(auth.currentUser$|async)" md-button (click)="signOut()">SignOut</button>
+
+  </md-toolbar>
+
+  <div class="page-title">
+    <p class="text-body">{{app.appTitle$|async}}</p>
+    <ul class="l-right breadcrumb" *ngIf="app.getBreadcrumb((app.breadcrumb$|async))">
+      <li *ngFor="let breadcrumb of app.getBreadcrumb((app.breadcrumb$|async))">
+        <span *ngIf="!breadcrumb.link">{{breadcrumb.title}}</span>
+        <a *ngIf="breadcrumb.link" routerLink="{{breadcrumb.link}}"><span>{{breadcrumb.title}}</span></a>
+
+      </li>
+    </ul>
+  </div>
+
+  <div class="l-content-small grid-fluid app-content">
+    <router-outlet></router-outlet>
+  </div>
+</md-sidenav-container>

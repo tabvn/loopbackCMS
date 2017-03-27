@@ -1,0 +1,54 @@
+<md-card>
+  <md-card-title>{{title}}</md-card-title>
+  <div *ngIf="errorMessage" class="alert is-critical">
+    <p>{{errorMessage}}</p>
+    <button class="close-button" md-button (click)="errorMessage = null">
+      <md-icon>close</md-icon>
+    </button>
+  </div>
+
+
+  <form #f="ngForm" (ngSubmit)="onSave()">
+    <div class="form-group form-group-full-width">
+      <md-input-container>
+        <input [(ngModel)]="model.firstName" type="text" mdInput name="firstName" placeholder="First Name"/>
+      </md-input-container>
+    </div>
+    <div class="form-group form-group-full-width">
+      <md-input-container>
+        <input [(ngModel)]="model.lastName" type="text" mdInput name="lastName" placeholder="Last Name"/>
+      </md-input-container>
+    </div>
+    <div class="form-group form-group-full-width">
+      <md-input-container>
+        <input [(ngModel)]="model.email" type="email" mdInput name="email" placeholder="Email" [required]="true"/>
+      </md-input-container>
+    </div>
+    <div class="form-group form-group-full-width">
+      <md-input-container>
+        <input [(ngModel)]="model.username" mdInput name="username" placeholder="Username" [required]="true"/>
+      </md-input-container>
+    </div>
+    <div class="form-group form-group-full-width">
+      <md-input-container>
+        <input [(ngModel)]="model.password" type="password" mdInput name="password" placeholder="Password"
+               [required]="passwordRequired"/>
+      </md-input-container>
+    </div>
+    <div *ngIf="model.id" adminElement class="form-group form-group-full-width">
+      <label class="form-label">Roles</label>
+      <div *ngFor="let role of roles">
+        <md-checkbox class="user-role-checkbox" name="user-role" value="role"
+                     (change)="updateRoles(role, $event)" [checked]="isExistById(model.roles,role)">
+          {{role.name}}
+        </md-checkbox>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <button type="submit" md-raised-button>{{action}}</button>
+      <button type="button" md-button (click)="dialog.close()">Cancel</button>
+    </div>
+
+  </form>
+</md-card>

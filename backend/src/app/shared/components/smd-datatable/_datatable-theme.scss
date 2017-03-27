@@ -1,0 +1,109 @@
+
+@mixin smd-datatable-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+  $base-border-color: mat-color($foreground, divider);
+  $base-sorted-icon-selected: mat-color($foreground, text);
+
+  smd-datatable {
+    .smd-data-table {
+      border-color: $base-border-color;
+      background-color: transparent;
+
+      tr {
+        color: mat-color($foreground, text);
+      }
+
+      thead {
+        border-bottom-color: $base-border-color;
+        border-top-color: $base-border-color;
+
+        tr {
+          th {
+            color: mat-color($foreground, text);
+
+            &.smd-datatable-column-sortable {
+              & > span {
+                &:before {
+                  color: mat-color($foreground, hint-text);
+                }
+
+                &.smd-sorted-asc {
+                  &:before {
+                    color: $base-sorted-icon-selected;
+                  }
+                }
+
+                &.smd-sorted-desc {
+                  &:before {
+                    color: $base-sorted-icon-selected;
+                  }
+                }
+              }
+            }
+          }
+
+        }
+      }
+
+      tbody {
+        tr {
+          color: mat-color($foreground, text);
+
+          border-top-color: $base-border-color;
+          border-bottom-color: $base-border-color;
+
+          &:hover {
+            background-color: mat-color($background, hover);
+          }
+
+          &.is-selected {
+            background-color: #F5F5F5;
+            color: mat-color($mat-light-theme-foreground, text);
+          }
+
+          & .smd-column-title {
+            color: mat-color($foreground, text);
+          }
+
+          td {
+            &.smd-editable {
+              & .smd-editable-field-placeholder {
+                color: mat-color($foreground, hint-text);
+              }
+            }
+          }
+        }
+      }
+
+      tfoot {
+        tr {
+          td {
+            smd-paginator {
+              color: mat-color($foreground, secondary-text);
+            }
+          }
+        }
+      }
+
+      smd-datatable-header {
+        background-color: transparent;
+
+        & > div {
+          button {
+            color: mat-color($foreground, text);
+          }
+        }
+
+        &.is-selected {
+          background-color: mat-color($accent, 50);
+          color: mat-color($primary);
+        }
+      }
+    }
+  }
+
+}

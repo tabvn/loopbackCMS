@@ -1,0 +1,80 @@
+{
+  "_meta": {
+    "sources": [
+      "loopback/common/models",
+      "loopback/server/models",
+      "../common/models",
+      "./models"
+    ],
+    "mixins": [
+      "loopback/common/mixins",
+      "loopback/server/mixins",
+      "../common/mixins",
+      "../node_modules/loopback-ds-timestamp-mixin",
+      "./mixins"
+    ]
+  },
+  "User": {
+    "dataSource": "db",
+    "public": false
+  },
+  "AccessToken": {
+    "dataSource": "db",
+    "public": false
+  },
+  "ACL": {
+    "dataSource": "db",
+    "public": false
+  },
+  "RoleMapping": {
+    "dataSource": "db",
+    "public": false,
+    "options": {
+      "strictObjectIDCoercion": true
+    }
+  },
+  "Role": {
+    "dataSource": "db",
+    "public": false
+  },
+  "user": {
+    "dataSource": "db",
+    "public": true
+  },
+  "role": {
+    "dataSource": "db",
+    "public": true
+  },
+  "media": {
+    "dataSource": "db",
+    "public": true
+  },
+  "media_link": {
+    "dataSource": "db",
+    "public": true
+  },
+  "storage": {
+    "dataSource": "media",
+    "public": false
+  },
+  "vocabulary": {
+    "dataSource": "db",
+    "public": true
+  },
+  "taxonomy": {
+    "dataSource": "db",
+    "public": true
+  },
+  "node": {
+    "dataSource": "db",
+    "public": true
+  },
+  "taxonomy_node": {
+    "dataSource": "db",
+    "public": true
+  },
+  "portfolio": {
+    "dataSource": "db",
+    "public": true
+  }
+}

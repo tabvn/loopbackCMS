@@ -1,0 +1,100 @@
+{
+  "name": "media",
+  "base": "PersistedModel",
+  "strict": false,
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "TimeStamp": true
+  },
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "container": {
+      "type": "string"
+    },
+    "size": {
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "user": {
+      "type": "belongsTo",
+      "model": "user",
+      "foreignKey": ""
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "administrator",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW",
+      "property": "upload"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW",
+      "property": "destroyById"
+    }
+  ],
+  "methods": {
+    "upload": {
+      "accepts": [
+        {
+          "arg": "ctx",
+          "type": "object",
+          "required": false,
+          "description": "Context",
+          "http": {
+            "source": "context"
+          }
+        },
+        {
+          "arg": "options",
+          "type": "object",
+          "required": false,
+          "description": "Options",
+          "http": {
+            "source": "query"
+          }
+        }
+      ],
+      "returns": [
+        {
+          "arg": "files",
+          "type": "object",
+          "root": true
+        }
+      ],
+      "description": "Upload file",
+      "http": [
+        {
+          "path": "/upload",
+          "verb": "post"
+        }
+      ]
+    }
+  }
+}

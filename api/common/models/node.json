@@ -1,0 +1,86 @@
+{
+  "name": "node",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "TimeStamp": true
+  },
+  "properties": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "body": {
+      "type": "string"
+    },
+    "status": {
+      "type": "number",
+      "default": 1
+    }
+  },
+  "validations": [],
+  "relations": {
+    "taxonomies": {
+      "type": "hasMany",
+      "model": "taxonomy_node",
+      "polymorphic": {
+        "foreignKey": "refId",
+        "discriminator": "refType"
+      }
+    },
+    "images": {
+      "type": "hasMany",
+      "model": "media_link",
+      "polymorphic": {
+        "foreignKey": "refId",
+        "discriminator": "refType"
+      }
+    },
+    "user": {
+      "type": "belongsTo",
+      "model": "user",
+      "foreignKey": ""
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": [
+        "find",
+        "findById",
+        "findOne",
+        "count"
+      ]
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "administrator",
+      "permission": "ALLOW",
+      "property": "*"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW",
+      "property": [
+        "findById",
+        "destroyById"
+      ]
+    }
+  ],
+  "methods": {}
+}

@@ -1,0 +1,8 @@
+<md-card class="dialog-confirm">
+	<md-card-title *ngIf="title">{{title}}</md-card-title>
+  <p [innerHTML]="message"></p>
+	<div class="actions">
+		<button md-raised-button (click)="dialog.close(true)" [color]="'warn'">{{actionButton}}</button>
+		<button md-button (click)="dialog.close()">{{cancelButton}}</button>
+	</div>
+</md-card>

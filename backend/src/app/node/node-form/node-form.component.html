@@ -1,0 +1,79 @@
+<md-card class="no-style">
+  <md-card-title>{{title}}</md-card-title>
+  <div *ngIf="errorMessage" class="alert is-critical">
+    <p>{{errorMessage}}</p>
+    <button class="close-button" md-button (click)="errorMessage = null">
+      <md-icon>close</md-icon>
+    </button>
+  </div>
+
+
+  <form #f="ngForm" (ngSubmit)="onSave()">
+
+
+    <div class="grid-fluid">
+      <div class="c9 node-form-left">
+        <div class="form-group form-group-full-width">
+          <md-input-container>
+            <input [(ngModel)]="model.title" type="text" mdInput name="firstName" placeholder="Title"
+                   [required]="true"/>
+          </md-input-container>
+        </div>
+
+        <div class="form-group form-group-full-width">
+          <editor [(ngModel)]="model.body" name="body"></editor>
+        </div>
+
+        <div class="form-group form-group-full-width">
+          <div class="l-pad-1">
+            <md-select [(ngModel)]="model.status" name="status" placeholder="Publish options">
+              <md-option *ngFor="let op of nodeStatus" [value]="op.status">{{op.title}}</md-option>
+            </md-select>
+          </div>
+
+        </div>
+      </div>
+      <div class="c3 node-form-right">
+        <md-card>
+          <md-card-title>Publish</md-card-title>
+          <md-card-content>
+            <div class="form-group">
+              <button type="submit" [disabled]="errorMessage" md-raised-button [color]="'primary'">{{action}}</button>
+              <button type="button" md-button (click)="dialog.close()">Cancel</button>
+            </div>
+          </md-card-content>
+        </md-card>
+        <md-card>
+          <md-card-title>Categories</md-card-title>
+          <md-card-content>
+            <form-taxonomy (onChange)="onTaxonomyChange($event)" [selected]="model.taxonomies" [limit]="1"
+                           [vocabulary]="'categories'"></form-taxonomy>
+          </md-card-content>
+
+        </md-card>
+
+        <md-card>
+          <md-card-title>Media
+            <button (click)="openMediaLibrary()" title="Add media" type="button" md-button [color]="'primary'">
+              <md-icon>add</md-icon>
+            </button>
+          </md-card-title>
+          <md-card-content>
+            <div class="form-node-images">
+              <ul class="images-list">
+                <li md-tooltip="click to remove" *ngFor="let image of model.images; let i = index;"
+                    (click)="onRemoveImmage(i)"><img
+                    [src]="image.media.name|thumbnail: 'thumbnail_150'"/></li>
+              </ul>
+            </div>
+          </md-card-content>
+
+        </md-card>
+
+
+      </div>
+    </div>
+
+
+  </form>
+</md-card>

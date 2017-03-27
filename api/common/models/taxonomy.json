@@ -1,0 +1,100 @@
+{
+  "name": "taxonomy",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "TimeStamp": true
+  },
+  "properties": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "vocabulary": {
+      "type": "belongsTo",
+      "model": "vocabulary",
+      "foreignKey": ""
+    },
+    "parent": {
+      "type": "belongsTo",
+      "model": "taxonomy",
+      "foreignKey": "parentId"
+    },
+    "children": {
+      "type": "hasMany",
+      "model": "taxonomy",
+      "foreignKey": "parentId"
+    },
+    "nodes": {
+      "type": "hasMany",
+      "model": "node",
+      "foreignKey": "taxonomyId",
+      "through": "taxonomy_node"
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": [
+        "find",
+        "findById",
+        "findOne",
+        "count"
+      ]
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "administrator",
+      "permission": "ALLOW",
+      "property": "*"
+    }
+  ],
+  "methods": {
+    "getTreeTaxonomy": {
+      "accepts": [
+        {
+          "arg": "filter",
+          "type": "object"
+        },
+        {
+          "arg": "options",
+          "type": "object",
+          "http": "optionsFromRequest"
+        }
+      ],
+      "returns": [
+        {
+          "arg": "result",
+          "type": "object",
+          "root": true
+        }
+      ],
+      "description": "Get Taxonomy hierarchy tree",
+      "http": [
+        {
+          "path": "/tree",
+          "verb": "get"
+        }
+      ]
+    }
+  }
+}

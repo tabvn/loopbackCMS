@@ -1,0 +1,39 @@
+<md-card>
+  <md-card-title>{{title}}</md-card-title>
+  <div *ngIf="errorMessage" class="alert is-critical">
+    <p>{{errorMessage}}</p>
+    <button class="close-button" md-button (click)="errorMessage = null">
+      <md-icon>close</md-icon>
+    </button>
+  </div>
+
+
+  <form #f="ngForm" (ngSubmit)="onSave()">
+    <div class="form-group form-group-full-width">
+      <md-input-container>
+        <input [(ngModel)]="model.title" type="text" mdInput name="firstName" placeholder="Title" [required]="true"/>
+      </md-input-container>
+    </div>
+
+    <div class="form-group form-group-full-width">
+      <md-input-container>
+        <textarea [(ngModel)]="model.description" mdInput name="description" placeholder="Description"></textarea>
+      </md-input-container>
+    </div>
+
+    <div class="form-group form-group-full-width">
+      <label class="form-label">Parent</label>
+      <div class="tree-select-option-wrapper">
+        <tree-select-option [selected]="model.parentId" (select)="onSelectParent($event)"
+                            [data]="taxonomies"></tree-select-option>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <button type="submit" [disabled]="errorMessage" md-raised-button>{{action}}</button>
+      <button type="button" md-button (click)="dialog.close()">Cancel</button>
+    </div>
+
+  </form>
+</md-card>

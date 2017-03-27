@@ -1,0 +1,8 @@
+<template ngFor let-item [ngForOf]="data">
+  <div #element class="select-option-item" (click)="onSelect(item)"
+       [class.selected]="_selected && _selected == item.id">
+    <span class="sub-item" *ngIf="item.parentId">--</span> {{ item.title }}
+  </div>
+  <tree-select-option [selected]="_selected" (select)="onChildSelect($event)" *ngIf="item.children"
+                      [data]="item.children"></tree-select-option>
+</template>

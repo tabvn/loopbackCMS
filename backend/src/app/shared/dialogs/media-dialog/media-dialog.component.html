@@ -1,0 +1,61 @@
+<md-card class="media-dialog-card">
+	<md-card-title *ngIf="title">{{title}}</md-card-title>
+	<md-tab-group (selectChange)="onTabChange($event)" [selectedIndex]="selectedTabIndex">
+		<md-tab>
+			<template md-tab-label>
+				<md-icon>cloud_upload</md-icon>
+				Upload
+			</template>
+
+			<div class="l-pad-top-1 l-pad-bottom-1">
+				<div *ngIf="uploadErrorMessage" class="alert is-critical"><p>{{uploadErrorMessage}}</p></div>
+				<dropzone [config]="config" [message]="'Click or drag images here to upload'" (error)="onUploadError($event)"
+									(success)="onUploadSuccess($event)"></dropzone>
+			</div>
+		</md-tab>
+		<md-tab>
+			<template md-tab-label>
+				<md-icon>photo_library</md-icon>
+				Media Library
+			</template>
+			<div class="l-pad-top-1 l-pad-bottom-1">
+				<div class="notify-message alert is-important" *ngIf="notifyMessage">{{notifyMessage}}</div>
+				<div class="media-library-wrapper">
+					<div class="scrollable-zone">
+						<md-grid-list cols="4">
+							<md-grid-tile [class.selected]="(isSelectedMedia(item))" *ngFor="let item of library">
+								<div class="media-is-selected-icon" (click)="onSelectMedia(item)">
+									<md-icon *ngIf="isSelectedMedia(item)">check_circle</md-icon>
+								</div>
+								<div class="media-item" md-tooltip="{{item.name}}" (click)="onSelectMedia(item)">
+									<div *ngIf="isImageFileType(item.type)" class="image-file-type">
+										<img [src]="item.name | thumbnail: 'thumbnail_150'"/>
+									</div>
+									<div *ngIf="!isImageFileType(item.type)" class="not-image-file-type">
+										<span class="file-type-unknown">{{item.type}}</span>
+									</div>
+
+								</div>
+							</md-grid-tile>
+						</md-grid-list>
+						<div class="load-more-pager text-center l-pad-top-3 l-pad-bottom-3">
+							<button [disabled]="(libraryLoadMoreButton == 'loading...')" md-button (click)="loadMoreLibrary()">
+								{{libraryLoadMoreButton}}
+							</button>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</md-tab>
+	</md-tab-group>
+
+	<div class="actions">
+		<button md-raised-button (click)="dialog.close(selectedMedia)" [color]="'primary'"
+						[disabled]="selectedMedia.length == 0">
+			{{actionButton}}
+		</button>
+		<button md-button (click)="dialog.close()">{{cancelButton}}</button>
+	</div>
+
+</md-card>

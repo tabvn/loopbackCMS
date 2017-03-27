@@ -1,0 +1,5 @@
+<ul class="form-taxonomy" [class.disabled]="_disabled">
+  <li *ngFor="let term of models" class="form-taxonomy-item" [class.selected]="term.checked" (click)="_onSelect(term)">
+    <span class="indentation level-{{term.level}}"></span>{{term.model.title}}
+  </li>
+</ul>

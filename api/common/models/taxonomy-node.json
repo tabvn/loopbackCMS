@@ -1,0 +1,33 @@
+{
+  "name": "taxonomy_node",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "scope": {
+    "include": [
+      "taxonomy"
+    ]
+  },
+  "properties": {},
+  "validations": [],
+  "relations": {
+    "taxonomy": {
+      "type": "belongsTo",
+      "model": "taxonomy",
+      "foreignKey": "taxonomyId"
+    },
+    "node": {
+      "type": "belongsTo",
+      "model": "node",
+      "as": "taxonomies",
+      "polymorphic": {
+        "foreignKey": "refId",
+        "discriminator": "refType"
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

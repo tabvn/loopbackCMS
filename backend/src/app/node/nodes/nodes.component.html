@@ -1,0 +1,53 @@
+<md-card class="datatable-card">
+  <div *ngIf="errorMessage" class="l-pad-top-1 l-pad-bottom-1 alert is-critical">{{errorMessage}}</div>
+  <smd-datatable
+      [models]="models"
+      [paginated]="true"
+      [paginatorRanges]="[25,50,75,100]"
+      [counts]="modelCounts"
+      (pageChange)="onPageChange($event)"
+      [responsive]="responsive">
+
+    <smd-datatable-header
+        [enableFilter]="true"
+        filterLabel="Search...">
+      <smd-datatable-action-button (onClick)="addItem($event)" label="Add" icon="add"></smd-datatable-action-button>
+
+      <smd-datatable-contextual-button (onClick)="editItem($event)" icon="edit"
+                                       [minimunSelected]="1" [maxSelected]="1"
+                                       mdTooltip="Edit the selected element"></smd-datatable-contextual-button>
+      <smd-datatable-contextual-button (onClick)="removeItems($event)" icon="delete"
+                                       [minimunSelected]="1"
+                                       mdTooltip="Delete the element"></smd-datatable-contextual-button>
+      <smd-datatable-contextual-button icon="search"></smd-datatable-contextual-button>
+    </smd-datatable-header>
+
+
+    <smd-datatable-column title="Title" field="title" sortable="true">
+      <template let-model="data">
+        {{model.title}}
+      </template>
+    </smd-datatable-column>
+    <smd-datatable-column title="Status" field="status" sortable="true">
+      <template let-model="data">
+        {{model.status ? "Published": "Unpublished"}}
+      </template>
+    </smd-datatable-column>
+    <smd-datatable-column title="Created" field="createdAt" sortable="true"
+                          [sortFn]="_sortByBirthDate"
+                          [filterFn]="_filterByBirthDate">
+      <template let-model="data">
+        {{model.createdAt | date:'dd/MM/yyyy, hh:mm:ss a'}}
+      </template>
+    </smd-datatable-column>
+    <smd-datatable-column title="Updated" field="updatedAt" sortable="true"
+                          [sortFn]="_sortByBirthDate"
+                          [filterFn]="_filterByBirthDate">
+      <template let-model="data">
+        {{model.updatedAt | date:'dd/MM/yyyy, hh:mm:ss a'}}
+      </template>
+    </smd-datatable-column>
+
+
+  </smd-datatable>
+</md-card>

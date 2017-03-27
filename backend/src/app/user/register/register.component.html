@@ -1,0 +1,64 @@
+<md-card class="c6 b3">
+	<form #f="ngForm" (ngSubmit)="onSubmit()">
+		<div *ngIf="errorMessage" class="alert is-critical">
+			<p>{{errorMessage}}</p>
+			<button class="close-button" md-button (click)="errorMessage = null">
+				<md-icon>close</md-icon>
+			</button>
+		</div>
+		<div *ngIf="successMessage">
+			<div class="alert is-helpful">
+				<p [innerHTML]="successMessage"></p>
+				<button class="close-button" md-button (click)="successMessage = null">
+					<md-icon>close</md-icon>
+				</button>
+			</div>
+			<button type="button" md-raised-button (click)="router.navigate(['/access'])">Login now</button>
+		</div>
+
+		<div *ngIf="!successMessage">
+			<div class="form-group form-group-full-width">
+				<md-input-container>
+					<input [(ngModel)]="model.firstName" type="text" mdInput name="firstName" placeholder="First Name"/>
+				</md-input-container>
+			</div>
+			<div class="form-group form-group-full-width">
+				<md-input-container>
+					<input [(ngModel)]="model.lastName" type="text" mdInput name="lastName" placeholder="Last Name"/>
+				</md-input-container>
+			</div>
+			<div class="form-group form-group-full-width">
+				<md-input-container>
+					<input [(ngModel)]="model.email" type="email" mdInput name="email" placeholder="Email" [required]="true"/>
+				</md-input-container>
+			</div>
+			<div class="form-group form-group-full-width">
+				<md-input-container>
+					<input [(ngModel)]="model.username" mdInput name="username" placeholder="Username" [required]="true"/>
+				</md-input-container>
+			</div>
+			<div class="form-group form-group-full-width">
+				<md-input-container>
+					<input [(ngModel)]="model.password" type="password" mdInput name="password" placeholder="Password"
+								 [required]="true"/>
+				</md-input-container>
+			</div>
+			<div class="form-group form-group-full-width">
+				<md-input-container>
+					<input [(ngModel)]="passwordRepeat" type="password" mdInput name="repeat-password"
+								 placeholder="Repeat Password" [required]="true">
+				</md-input-container>
+			</div>
+			<div class="form-group">
+				<ul class="links">
+					<li><a routerLink="/access">Login</a></li>
+					<li><a routerLink="/users/password">Forgot password</a></li>
+				</ul>
+			</div>
+			<div class="form-group">
+				<button type="submit" md-raised-button>{{actionTitle}}</button>
+			</div>
+		</div>
+
+	</form>
+</md-card>

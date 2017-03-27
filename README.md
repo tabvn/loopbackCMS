@@ -35,5 +35,9 @@ From root folder change directory to api and run npm install to install all modu
 ``` npm start ``` to run the angular 2 backend app
 
 
+## Screenshot
+
+<img src="http://cloud.tabvn.com/6xax3n.png" />
+
 
 

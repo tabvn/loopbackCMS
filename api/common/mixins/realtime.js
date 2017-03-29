@@ -47,6 +47,7 @@ module.exports = function (Model, options) {
     Model.observe('after save', function (ctx, next) {
         var socket = Model.app.io;
 
+        console.log("Connections:", Model.app.connections);
         if (ctx.isNewInstance) {
             //Now publishing the data..
             realtime.publish(socket, {

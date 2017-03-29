@@ -5,6 +5,7 @@ var boot = require('loopback-boot');
 
 var app = module.exports = loopback();
 
+
 app.start = function () {
     // start the web server
     return app.listen(function () {
@@ -23,6 +24,8 @@ app.use(loopback.token({
     currentUserLiteral: 'me'
 }));
 
+app.connections = [];
+
 
 // Bootstrap the application, configure models, datasources and middleware.
 // Sub-apps like REST API are mounted via boot scripts.
@@ -33,6 +36,7 @@ boot(app, __dirname, function (err) {
     if (require.main === module) {
 
         //app.start();
+
         app.io = require('socket.io')(app.start());
         require('socketio-auth')(app.io, {
             authenticate: function (socket, value, callback) {
@@ -46,20 +50,40 @@ boot(app, __dirname, function (err) {
                 }, function (err, tokenDetail) {
                     if (err) throw err;
                     if (tokenDetail.length) {
+                        // add user Id to app connections
+
                         callback(null, true);
                     } else {
                         callback(null, false);
                     }
                 }); //find function..
-            } //authenticate function..
+            }, //authenticate function..
+            postAuthenticate: function (socket, data) {
+                var user = {userId: data.userId, token: data.id};
+                app.connections[data.userId] = user;
+                console.log('a user connected', app.connections);
+                socket.client.user = user
+            },
+            disconnect: function (socket) {
+
+                if (typeof socket.client.user !== "undefined" && typeof socket.client.user.userId !== "undefined" && typeof app.connections[socket.client.user.userId] !== "undefined") {
+                    delete app.connections[socket.client.user.userId];
+                    console.log("Removing: ", socket.client.user.userId, app.connections);
+                }
+
+
+            }
         });
 
         app.io.on('connection', function (socket) {
-            console.log('a user connected');
+
             socket.on('disconnect', function () {
                 console.log('user disconnected');
+
             });
         });
+
+
     }
 
 

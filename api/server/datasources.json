@@ -1,6 +1,6 @@
 {
   "db": {
-    "url": "mongodb://127.0.0.1:27017/findeo",
+    "url": "mongodb://127.0.0.1:27017/loopcms",
     "name": "db",
     "connector": "mongodb"
   },

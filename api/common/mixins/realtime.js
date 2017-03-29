@@ -12,9 +12,11 @@ var realtime = {
             if (method === 'POST') {
                 //console.log('Posting new data');
                 var name = '/' + model + '/' + method;
+
                 socket.emit(name, data);
             }
             else {
+
                 var name = '/' + model + '/' + modelId + '/' + method;
                 socket.emit(name, data);
             }
@@ -68,7 +70,6 @@ module.exports = function (Model, options) {
     Model.observe("before delete", function (ctx, next) {
         var socket = Model.app.io;
 
-        console.log("Before deleted", ctx);
         realtime.publish(socket, {
             model: modelName,
             data: ctx.where.id,

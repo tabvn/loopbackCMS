@@ -7,12 +7,14 @@ import {AppComponent} from './app.component';
 import {ApiModule} from "./shared/services/api.module";
 import {appRoutingProviders, AppRouting} from "./app.routing";
 import {SharedModule} from "./shared/shared.module";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
     declarations: [
         AppComponent
     ],
     imports: [
+        BrowserAnimationsModule,
         BrowserModule,
         FormsModule,
         HttpModule,

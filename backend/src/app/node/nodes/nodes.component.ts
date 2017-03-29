@@ -40,6 +40,11 @@ export class NodesComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
 
+        let options = {
+            model: "node",
+            method: "POST"
+        };
+
         this.app.setTitle("Content");
 
         this.filter$ = this.route
@@ -174,6 +179,7 @@ export class NodesComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.app.setBreadcrumb(null);
+        this.realtime.unSubscribeAll();
     }
 
 

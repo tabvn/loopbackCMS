@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {MdDialogRef} from "@angular/material";
-import {DropzoneConfigInterface} from "angular2-dropzone-wrapper";
 import {ApiConfig} from "../../api.config";
 import {AuthService} from "../../services/core/auth.service";
 import {UserService} from "../../services/custom/user.service";
 import {LoopBackFilter} from "../../models/base.model";
 import {Media} from "../../models/media.model";
+import {DropzoneConfigInterface} from "ngx-dropzone-wrapper";
 
 @Component({
     selector: 'app-media-dialog',

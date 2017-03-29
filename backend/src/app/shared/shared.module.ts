@@ -22,11 +22,11 @@ import {ConfirmDialogComponent} from "./dialogs/confirm-dialog/confirm-dialog.co
 import {DialogService} from "./services/core/dialog.service";
 import {MediaUrlPipe} from "./pipes/media-url.pipe";
 import {MediaDialogComponent} from "./dialogs/media-dialog/media-dialog.component";
-import {DropzoneModule} from "angular2-dropzone-wrapper";
 import {EditorComponent} from "./components/editor/editor.component";
 import {ThumbnailPipe} from "./pipes/thumbnail.pipe";
 import {TreeOptionComponent} from "./components/tree-option/tree-option.component";
 import {FormTaxonomyComponent} from "./components/form-taxonomy/form-taxonomy.component";
+import {DropzoneModule} from "ngx-dropzone-wrapper";
 
 
 let IMPORTS = [

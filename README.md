@@ -1,6 +1,9 @@
 # LoopCMS
 * Loopback API + Angular 2 CMS with Realtime Database featured.
 * Videos: https://www.youtube.com/playlist?list=PLFaW_8zE4amNf4LKlFn061D8R_7osw9rn
+* Facebook: http://facebook.com/TabvnGroup
+* Twitter: http://twitter.com/tabvn
+* Website: http://tabvn.com/
 
 
 ## Install imagemagic

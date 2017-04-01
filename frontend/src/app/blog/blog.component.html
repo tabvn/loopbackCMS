@@ -20,7 +20,7 @@
   </div>
 
 
-  <ngb-pagination (pageChange)="pageChange($event)" [pageSize]="filter.limit" [collectionSize]="count" [(page)]="page"
+  <ngb-pagination *ngIf="count" (pageChange)="pageChange($event)" [pageSize]="filter.limit" [collectionSize]="count" [(page)]="page"
                   [maxSize]="5" [rotate]="true"
                   [boundaryLinks]="true"></ngb-pagination>
 

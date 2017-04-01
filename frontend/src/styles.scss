@@ -5,6 +5,20 @@ a {
   color: $primary-color;
 }
 
+header {
+  .user-avatar {
+    width: 20px;
+    height: 20px;
+    img {
+      width: 20px;
+      height: 20px;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      border-radius: 50%;
+    }
+  }
+}
+
 .page-title {
   background-color: $primary-color;
   color: #FFF;

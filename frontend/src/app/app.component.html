@@ -1,67 +1,74 @@
 <div class="container no-padding">
-  <header class="navbar navbar-light navbar-fixed-top navbar-toggleable-md">
-    <button (click)="isNavCollapsed = !isNavCollapsed"
-            [attr.aria-expanded]="!isNavCollapsed" class="navbar-toggler navbar-toggler-right" type="button"
-            aria-controls="navbarsDefault" aria-expanded="false"
-            aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <a class="navbar-brand" routerLink="/">Loopback</a>
+	<header class="navbar navbar-light navbar-fixed-top navbar-toggleable-md">
+		<button (click)="isNavCollapsed = !isNavCollapsed"
+						[attr.aria-expanded]="!isNavCollapsed" class="navbar-toggler navbar-toggler-right" type="button"
+						aria-controls="navbarsDefault" aria-expanded="false"
+						aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<a class="navbar-brand" routerLink="/">Loopback</a>
 
-    <div class="collapse navbar-collapse" id="navbarsDefault" [ngbCollapse]="isNavCollapsed">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/blog" routerLinkActive="active">Blog</a>
-        </li>
-        <li ngbDropdown class="nav-item dropdown">
-          <button class="btn-link nav-link dropdown-toggle" id="dropdownMenu1" ngbDropdownToggle>Sub Menu</button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <a class="dropdown-item" routerLink="/">Action</a>
-            <a class="dropdown-item" routerLink="/">Another action</a>
-            <a class="dropdown-item" routerLink="/">Something else here</a>
-          </div>
-        </li>
-      </ul>
-      <ul class="navbar-nav navbar-nav-right">
-        <li class="nav-item">
-          <form id="searchColapsed" [ngbCollapse]="isSearchCollapsed" class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search...">
-          </form>
-        </li>
-        <li>
-          <button (click)="isSearchCollapsed = !isSearchCollapsed" class="btn-link nav-link"
-                  aria-controls="searchColapsed"><span class="fa fa-search"></span></button>
-        </li>
-        <li ngbDropdown class="nav-item dropdown">
-          <button class="btn-link nav-link" id="accountDropdownMenu" ngbDropdownToggle><span class="fa fa-user"></span>
-            {{getUserEmail(auth.currentUser$|async)}}
-          </button>
-          <div class="dropdown-menu" aria-labelledby="accountDropdownMenu">
-            <a *ngIf="!(auth.currentUser$|async)" class="dropdown-item" routerLink="/login">Login</a>
-            <a *ngIf="!(auth.currentUser$|async)" class="dropdown-item" routerLink="/register">Register</a>
-            <button *ngIf="auth.currentUser$|async" class="btn-link dropdown-item" routerLink="/" (click)="logout()">
-              Logout
-            </button>
-            <a *ngIf="(auth.currentUser$|async)" class="dropdown-item" routerLink="/user/{{(auth.currentUser$|async).username}}">Profile</a>
+		<div class="collapse navbar-collapse" id="navbarsDefault" [ngbCollapse]="isNavCollapsed">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item">
+					<a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" routerLink="/blog" routerLinkActive="active">Blog</a>
+				</li>
+				<li ngbDropdown class="nav-item dropdown">
+					<button class="btn-link nav-link dropdown-toggle" id="dropdownMenu1" ngbDropdownToggle>Sub Menu</button>
+					<div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+						<a class="dropdown-item" routerLink="/">Action</a>
+						<a class="dropdown-item" routerLink="/">Another action</a>
+						<a class="dropdown-item" routerLink="/">Something else here</a>
+					</div>
+				</li>
+			</ul>
+			<ul class="navbar-nav navbar-nav-right">
+				<li class="nav-item">
+					<form id="searchColapsed" [ngbCollapse]="isSearchCollapsed" class="form-inline my-2 my-lg-0">
+						<input class="form-control mr-sm-2" type="text" placeholder="Search...">
+					</form>
+				</li>
+				<li>
+					<button (click)="isSearchCollapsed = !isSearchCollapsed" class="btn-link nav-link"
+									aria-controls="searchColapsed"><span class="fa fa-search"></span></button>
+				</li>
+				<li ngbDropdown class="nav-item dropdown">
+					<button class="btn-link nav-link" id="accountDropdownMenu" ngbDropdownToggle>
+						<span *ngIf="!(auth.currentUser$|async) || !auth.getCurrentUserAvatar()" class="fa fa-user"></span>
+						<span *ngIf="(auth.currentUser$|async) && auth.getCurrentUserAvatar()" class="user-avatar"><img [src]="auth.getCurrentUserAvatar()|thumbnail: 'thumbnail_150'" /></span>
+						{{getUserEmail(auth.currentUser$|async)}}
+					</button>
+					<div class="dropdown-menu" aria-labelledby="accountDropdownMenu">
+						<a *ngIf="!(auth.currentUser$|async)" class="dropdown-item" routerLink="/login">Login</a>
+						<a *ngIf="!(auth.currentUser$|async)" class="dropdown-item" routerLink="/register">Register</a>
 
-          </div>
-        </li>
-      </ul>
+						<div *ngIf="(auth.currentUser$|async)" class="dropdown-item">Signed in as <strong>{{(auth.currentUser$|async).username}}</strong>
+						</div>
+						<div class="dropdown-divider"></div>
+						<a *ngIf="(auth.currentUser$|async)" class="dropdown-item"
+							 routerLink="/user/{{(auth.currentUser$|async).username}}">Profile</a>
+						<button *ngIf="auth.currentUser$|async" class="btn-link dropdown-item" routerLink="/" (click)="logout()">
+							Logout
+						</button>
 
-    </div>
-  </header>
+					</div>
+				</li>
+			</ul>
+
+		</div>
+	</header>
 </div>
 <div class="main-content">
-  <router-outlet></router-outlet>
+	<router-outlet></router-outlet>
 </div>
 
 <footer class="text-muted">
-  <div class="container">
-    <p>Loop CMS built on <a target="_blank" href="http://angular.io">Angular</a> <a target="_blank"
-                                                                                    href="http://loopback.io">Loopback</a>
-      Framework</p>
-  </div>
+	<div class="container">
+		<p>Loop CMS built on <a target="_blank" href="http://angular.io">Angular</a> <a target="_blank"
+																																										href="http://loopback.io">Loopback</a>
+			Framework</p>
+	</div>
 </footer>

@@ -1,5 +1,10 @@
 # LoopCMS
-Loopback API + Angular 2 CMS
+* Loopback API + Angular 2 CMS with Realtime Database featured.
+* Videos: https://www.youtube.com/playlist?list=PLFaW_8zE4amNf4LKlFn061D8R_7osw9rn
+* Facebook: http://facebook.com/TabvnGroup
+* Twitter: http://twitter.com/tabvn
+* Website: http://tabvn.com/
+
 
 ## Install imagemagic
 Imagemagic is use for crop image and resize image when upload media image. so need install it 

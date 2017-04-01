@@ -1,5 +1,7 @@
 # LoopCMS
-Loopback API + Angular 2 CMS
+* Loopback API + Angular 2 CMS
+* Videos: https://www.youtube.com/playlist?list=PLFaW_8zE4amNf4LKlFn061D8R_7osw9rn
+
 
 ## Install imagemagic
 Imagemagic is use for crop image and resize image when upload media image. so need install it 

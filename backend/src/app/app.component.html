@@ -2,9 +2,19 @@
 
   <md-sidenav #sidenav mode="side" class="app-sidenav">
     <md-toolbar>
-      <span>Menu</span>
+
+
+      <span (click)="updateCurrentUserAvatar()" class="user-avatar" *ngIf="(auth.currentUser$|async)"><img
+          *ngIf="auth.getCurrentUserAvatar()"
+          [src]="auth.getCurrentUserAvatar()|thumbnail: 'thumbnail_150'"/>
+
+      </span>
+      <span class="user-email" *ngIf="auth.currentUser$|async">{{getUserEmail(auth.currentUser$|async)}}</span>
+
       <span class="app-toolbar-filler"></span>
+
     </md-toolbar>
+
 
     <div class="app-navigation">
       <nav adminElement>
@@ -36,9 +46,6 @@
     </button>
     <span class="title">{{title}}</span>
     <span class="app-toolbar-filler"></span>
-    <span (click)="updateCurrentUserAvatar()" class="user-avatar" *ngIf="(auth.currentUser$|async)"><img
-        *ngIf="auth.getCurrentUserAvatar()"
-        [src]="auth.getCurrentUserAvatar()|thumbnail: 'thumbnail_150'"/></span>
     <button *ngIf="(auth.currentUser$|async)" md-button (click)="signOut()">SignOut</button>
 
   </md-toolbar>

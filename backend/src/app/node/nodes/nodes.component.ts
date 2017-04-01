@@ -7,6 +7,7 @@ import {NodeFormComponent} from "../node-form/node-form.component";
 import {NodeService} from "../../shared/services/custom/node.service";
 import {Observable} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
+import {RealtimeService} from "../../shared/services/core/realtime.service";
 
 @Component({
     selector: 'app-nodes',
@@ -30,8 +31,8 @@ export class NodesComponent implements OnInit, OnDestroy {
 
     errorMessage: string;
 
-
-    constructor(private route: ActivatedRoute,
+    constructor(private realtime: RealtimeService,
+                private route: ActivatedRoute,
                 public dialog: MdDialog,
                 public dialogService: DialogService,
                 private app: AppService,
@@ -44,6 +45,13 @@ export class NodesComponent implements OnInit, OnDestroy {
             model: "node",
             method: "POST"
         };
+
+        this.realtime.observable(options).subscribe(res => {
+            console.log("Socket Data Found: ", res);
+            this.models.push(res);
+            this.modelCounts++;
+        });
+
 
         this.app.setTitle("Content");
 
@@ -125,7 +133,7 @@ export class NodesComponent implements OnInit, OnDestroy {
         dialogRef.afterClosed().subscribe((item: any) => {
             if (item) {
 
-                this.models.push(item);
+                //this.models.push(item);
 
             }
         });

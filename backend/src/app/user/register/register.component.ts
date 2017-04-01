@@ -12,8 +12,8 @@ import {Router} from "@angular/router";
 export class RegisterComponent implements OnInit {
 
 	model: User = new User();
-	successMessage: string;
-	errorMessage: string;
+	public successMessage: string;
+	public errorMessage: string;
 	passwordRepeat: string = "";
 	actionTitle: string = "Create an account";
 
@@ -41,7 +41,7 @@ export class RegisterComponent implements OnInit {
 		this.userService.create(this.model).subscribe((response: any) => {
 			this.errorMessage = null;
 			this.actionTitle = "Create an account";
-			this.successMessage = "Your account has been created. Check your mailbox if verify account is required.";
+			this.successMessage = "Your account has been created.";
 
 		});
 	}

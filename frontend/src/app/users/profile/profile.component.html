@@ -1,0 +1,31 @@
+<div class="page-title">
+  <div class="container">
+    <h1>{{model.username}}</h1>
+  </div>
+</div>
+<div class="container">
+  <ngb-alert *ngIf="message.text" [dismissible]="message.dismissible" (close)="message = null" [type]="message.type">
+    {{message.text}}
+  </ngb-alert>
+
+  <div *ngIf="model.id" class="profile card">
+    <div class="card-img-top user-profile-image">
+      <img *ngIf="model.avatar" class="profile" [src]="model.avatar.media.name|thumbnail:'thumbnail_150'"/>
+      <h4 class="card-title">{{model.username}}</h4>
+    </div>
+    <div class="card-block">
+
+    </div>
+    <ul class="list-group list-group-flush">
+      <li *ngIf="model.firstName" class="list-group-item"><strong>First name :</strong> {{model.firstName}}</li>
+      <li *ngIf="model.lastName" class="list-group-item"><strong>Last name: </strong> {{model.lastName}}</li>
+    </ul>
+
+    <div class="card-footer">
+      <small class="text-muted"><i class="fa fa-calendar" aria-hidden="true"></i> Joined at: {{model.createdAt|date:
+        'yMMMdjms'}}
+      </small>
+    </div>
+  </div>
+
+</div>

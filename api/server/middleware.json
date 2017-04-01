@@ -31,7 +31,9 @@
     }
   },
   "session": {},
-  "auth": {},
+  "auth": {
+
+  },
   "parse": {
     "body-parser#json": {
       "params": {

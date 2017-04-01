@@ -18,6 +18,7 @@ export class Storage {
      * The setter will return any type of data persisted in localStorage.
      **/
     set(key: string, value: any): void {
+
     }
 
     /**

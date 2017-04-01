@@ -1,0 +1,21 @@
+<div class="page-title">
+  <div class="container">
+    <h1>{{model.title}}</h1>
+  </div>
+</div>
+<div class="container">
+
+  <div class="article card">
+    <img *ngIf="model.images && model.images.length" class="card-img-top" [src]="model.images[0].media.name|mediaUrl">
+    <div class="card-block">
+      <h4 class="card-title">{{model.title}}</h4>
+      <div class="card-text" [innerHTML]="model.body"></div>
+    </div>
+    <div class="card-footer">
+      <small class="text-muted"><i class="fa fa-calendar" aria-hidden="true"></i> Created at: {{model.createdAt|date:
+        'yMMMdjms'}}
+      </small>
+    </div>
+  </div>
+
+</div>

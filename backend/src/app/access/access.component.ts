@@ -7,45 +7,45 @@ import {Router} from "@angular/router";
 import {AuthService} from "../shared/services/core/auth.service";
 
 @Component({
-	selector: 'app-access',
-	templateUrl: './access.component.html',
-	styleUrls: ['./access.component.css']
+    selector: 'app-access',
+    templateUrl: './access.component.html',
+    styleUrls: ['./access.component.css']
 })
 export class AccessComponent implements OnInit {
 
-	public user = new User();
-	public rememberMe: boolean = true;
-	errorMessage: string;
-	actionTitle: string = "Login";
+    public user = new User();
+    public rememberMe: boolean = true;
+    errorMessage: string;
+    actionTitle: string = "Login";
 
-	constructor(private router: Router,
-							public app: AppService,
-							public auth: AuthService,
-							private userService: UserService) {
+    constructor(private router: Router,
+                public app: AppService,
+                public auth: AuthService,
+                private userService: UserService) {
 
-	}
+    }
 
-	ngOnInit() {
+    ngOnInit() {
 
-		let user = this.auth.getCurrentUserData();
-		if (this.auth.isAdministrator(user)) {
-			this.router.navigate(['/users']);
-		}
-		this.app.setTitle("Login to access the dashboard system.");
+        let user = this.auth.getCurrentUserData();
+        if (this.auth.isAdministrator(user)) {
+            this.router.navigate(['/users']);
+        }
+        this.app.setTitle("Login to access the dashboard system.");
 
-	}
+    }
 
-	onSubmit() {
+    onSubmit() {
 
-		this.actionTitle = "Please wait...";
-		this.errorMessage = null;
+        this.actionTitle = "Please wait...";
+        this.errorMessage = null;
 
-		this.userService.login(this.user, 'user', this.rememberMe).subscribe((token: AccessToken) => {
-				this.router.navigate(['/']);
-			}
-			, err => {
-				this.actionTitle = "Login";
-				this.errorMessage = err.message;
-			});
-	}
+        this.userService.login(this.user, 'user', this.rememberMe).subscribe((token: AccessToken) => {
+                return this.router.navigate(['/']);
+            }
+            , err => {
+                this.actionTitle = "Login";
+                this.errorMessage = err.message;
+            });
+    }
 }

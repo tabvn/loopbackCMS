@@ -1,6 +1,7 @@
 import {ModuleWithProviders} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {AuthGuard} from './shared/auth.guard';
+import {RealtimeService} from "./shared/services/core/realtime.service";
 
 const appRoutes: Routes = [
     {
@@ -27,6 +28,7 @@ const appRoutes: Routes = [
 ];
 
 export const appRoutingProviders: any[] = [
-    AuthGuard
+    AuthGuard,
+    RealtimeService
 ];
 export const AppRouting: ModuleWithProviders = RouterModule.forRoot(appRoutes);

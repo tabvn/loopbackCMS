@@ -1,0 +1,28 @@
+<div class="page-title">
+  <div class="container">
+    <h1>Blog</h1>
+  </div>
+</div>
+<div class="container">
+
+  <div *ngFor="let model of models" class="article card">
+    <img *ngIf="model.images && model.images.length" class="card-img-top" [src]="model.images[0].media.name|mediaUrl">
+    <div class="card-block">
+      <h4 class="card-title"><a routerLink="/node/{{model.id}}">{{model.title}}</a></h4>
+      <div class="card-text" [innerHTML]="model.body"></div>
+      <a routerLink="/node/{{model.id}}" class="card-link">
+        Read more <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+    </div>
+    <div class="card-footer">
+      <small class="text-muted"><i class="fa fa-calendar" aria-hidden="true"></i> Created at: {{model.createdAt|date: 'yMMMdjms'}}
+      </small>
+    </div>
+  </div>
+
+
+  <ngb-pagination (pageChange)="pageChange($event)" [pageSize]="filter.limit" [collectionSize]="count" [(page)]="page"
+                  [maxSize]="5" [rotate]="true"
+                  [boundaryLinks]="true"></ngb-pagination>
+
+
+</div>

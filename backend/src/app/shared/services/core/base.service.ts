@@ -87,7 +87,7 @@ export abstract class BaseService {
         });
 
         var req = new Request(options);
-        
+
 
         return this.http.request(req)
             .map((res: any) => (res.text() != "" ? res.json() : {}))

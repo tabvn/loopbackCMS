@@ -9,6 +9,13 @@
     "TimeStamp": true,
     "Realtime": true
   },
+  "scope": {
+    "include": [
+      "taxonomies",
+      "images",
+      "user"
+    ]
+  },
   "properties": {
     "title": {
       "type": "string",

@@ -9,6 +9,7 @@ import {ApiConfig} from "../../api.config";
 @Injectable()
 export class AuthService {
 
+	public onAuthChange$: Subject<User> = new Subject<User>();
 	public currentUser$: Observable<User> = new Observable<User>();
 	public _isAdmin: Subject<boolean> = new Subject<boolean>();
 	public isAdmin: boolean = false;
@@ -91,6 +92,8 @@ export class AuthService {
 		this.currentUser$ = new Observable<User>((observer: Subscriber<User>) => {
 			observer.next(user);
 		});
+
+		this.onAuthChange$.next(user);
 
 		let isAdmin = this.isAdministrator(user);
 		this._isAdmin.next(isAdmin);
@@ -180,6 +183,8 @@ export class AuthService {
 	 * But only if rememberMe is enabled.
 	 **/
 	public save(): boolean {
+
+
 		if (this.token.rememberMe) {
 			this.persist('id', this.token.id);
 			this.persist('user', this.token.user);

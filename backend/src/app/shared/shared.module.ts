@@ -1,4 +1,4 @@
-import {NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import {NgModule, CUSTOM_ELEMENTS_SCHEMA, ModuleWithProviders} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MaterialModule} from "@angular/material";
 import {FormsModule} from "@angular/forms";
@@ -71,15 +71,14 @@ let COMPONETNS = [
 })
 export class SharedModule {
 
-    static forRoot(...imports: any[]): any[] {
+    static forRoot(): any[] {
         return [
             CommonModule,
             HttpModule,
             FormsModule,
             MaterialModule,
             SharedModule,
-            DropzoneModule,
-            ...imports
+            DropzoneModule
         ]
     }
 

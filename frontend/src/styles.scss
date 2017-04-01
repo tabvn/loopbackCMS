@@ -1,0 +1,74 @@
+$primary-color: #1976D2;
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+a {
+  color: $primary-color;
+}
+
+.page-title {
+  background-color: $primary-color;
+  color: #FFF;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  margin-bottom: 2rem;
+  text-align: left;
+  h1, h2, h3, h4, p {
+    color: #FFF;
+  }
+}
+
+.main-content {
+  @include media-breakpoint-up(lg) {
+    min-height: 400px;
+  }
+}
+
+.container {
+  &.no-padding {
+    padding: 0;
+  }
+
+}
+
+.navbar-nav.navbar-nav-right {
+  li {
+    &:hover {
+      color: $primary-color;
+      button, span {
+        color: $primary-color;
+      }
+    }
+  }
+}
+
+footer {
+  padding: 3rem 0;
+  margin-top: 3rem;
+  font-size: 85%;
+  background-color: #f7f7f7;
+  text-align: left;
+}
+
+.article {
+  margin-bottom: 30px;
+  .card-img-top {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+.card-img-top {
+  &.user-profile-image {
+    background-color: #EEEEEE;
+    padding: 2rem;
+    text-align: center;
+    img {
+      width: 150px;
+      height: 150px;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
+  }
+}

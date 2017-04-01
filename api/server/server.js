@@ -19,12 +19,11 @@ app.start = function () {
     });
 };
 
+
 app.use(loopback.token({
-    model: app.models.accessToken,
+    model: app.models.AccessToken,
     currentUserLiteral: 'me'
 }));
-
-app.connections = [];
 
 
 // Bootstrap the application, configure models, datasources and middleware.
@@ -32,53 +31,56 @@ app.connections = [];
 boot(app, __dirname, function (err) {
     if (err) throw err;
 
+
     // start the server if `$ node server.js`
     if (require.main === module) {
 
         //app.start();
 
+
         app.io = require('socket.io')(app.start());
+
+
         require('socketio-auth')(app.io, {
             authenticate: function (socket, value, callback) {
 
-                var AccessToken = app.models.AccessToken;
-                //get credentials sent by the client
-                var token = AccessToken.find({
-                    where: {
-                        and: [{userId: value.userId}, {id: value.id}]
-                    }
-                }, function (err, tokenDetail) {
-                    if (err) throw err;
-                    if (tokenDetail.length) {
-                        // add user Id to app connections
+                socket.client.accessToken = null;
+                socket.client.userId = null;
 
-                        callback(null, true);
-                    } else {
-                        callback(null, false);
-                    }
-                }); //find function..
-            }, //authenticate function..
-            postAuthenticate: function (socket, data) {
-                var user = {userId: data.userId, token: data.id};
-                app.connections[data.userId] = user;
-                console.log('a user connected', app.connections);
-                socket.client.user = user
-            },
-            disconnect: function (socket) {
+                if (value && value.userId && value.id) {
+                    var AccessToken = app.models.AccessToken;
+                    //get credentials sent by the client
+                    var token = AccessToken.findOne({
+                        where: {
+                            and: [{userId: value.userId}, {id: value.id}]
+                        }
+                    }, function (err, tokenDetail) {
+                        if (err) throw err;
+                        if (tokenDetail) {
+                            // add user Id to app connections
+                            socket.client.accessToken = tokenDetail;
+                            socket.client.userId = value.userId;
 
-                if (typeof socket.client.user !== "undefined" && typeof socket.client.user.userId !== "undefined" && typeof app.connections[socket.client.user.userId] !== "undefined") {
-                    delete app.connections[socket.client.user.userId];
-                    console.log("Removing: ", socket.client.user.userId, app.connections);
+                            callback(null, true);
+                        } else {
+                            callback(null, true); //false is disconnect user
+                        }
+                    }); //find function..
+                } else {
+                    callback(null, true); // set false if want to disconnect user
                 }
 
 
+            },
+            postAuthenticate: function (socket, data) {
+                console.log("User connected User:", socket.client.userId ? socket.client.userId : "anonymous");
             }
         });
 
         app.io.on('connection', function (socket) {
 
             socket.on('disconnect', function () {
-                console.log('user disconnected');
+                console.log('user disconnected User:', socket.client.userId ? socket.client.userId : "anonymous");
 
             });
         });

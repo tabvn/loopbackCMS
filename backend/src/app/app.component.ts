@@ -4,6 +4,8 @@ import {UserService} from "./shared/services/custom/user.service";
 import {AuthService} from "./shared/services/core/auth.service";
 import {Router} from "@angular/router";
 import {DialogService} from "./shared/services/core/dialog.service";
+import {RealtimeService} from "./shared/services/core/realtime.service";
+import {User} from "./shared/models/user.model";
 
 @Component({
     selector: 'app-root',
@@ -13,11 +15,15 @@ import {DialogService} from "./shared/services/core/dialog.service";
 export class AppComponent {
     title = 'Dashboard';
 
-    constructor(public app: AppService,
+    constructor(private realtime: RealtimeService,
+                public app: AppService,
                 public auth: AuthService,
                 private router: Router,
                 private dialogService: DialogService,
                 private userService: UserService) {
+
+
+        this.realtime.connect();
 
 
     }
@@ -25,6 +31,10 @@ export class AppComponent {
     signOut() {
         this.userService.logout();
         this.router.navigate(['/access']);
+    }
+
+    getUserEmail(user: User) {
+        return user.email;
     }
 
     updateCurrentUserAvatar() {

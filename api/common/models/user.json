@@ -62,6 +62,15 @@
     {
       "accessType": "EXECUTE",
       "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW",
+      "property": [
+        "findOne"
+      ]
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
       "principalId": "$owner",
       "permission": "ALLOW",
       "property": [

@@ -1,5 +1,5 @@
 # LoopCMS
-* Loopback API + Angular 2 CMS
+* Loopback API + Angular 2 CMS with Realtime Database featured.
 * Videos: https://www.youtube.com/playlist?list=PLFaW_8zE4amNf4LKlFn061D8R_7osw9rn
 
 

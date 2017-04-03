@@ -20,6 +20,7 @@ import {ThumbnailPipe} from "../../../backend/src/app/shared/pipes/thumbnail.pip
 import {MediaUrlPipe} from "../../../backend/src/app/shared/pipes/media-url.pipe";
 import {ProfileComponent} from './users/profile/profile.component';
 import {MainService} from "./shared/services/main.service";
+import { FriendsComponent } from './users/friends/friends.component';
 
 @NgModule({
     declarations: [
@@ -33,7 +34,8 @@ import {MainService} from "./shared/services/main.service";
         ThumbnailPipe,
         MediaUrlPipe,
         BlogDetailComponent,
-        ProfileComponent
+        ProfileComponent,
+        FriendsComponent
     ],
     imports: [
         BrowserModule,

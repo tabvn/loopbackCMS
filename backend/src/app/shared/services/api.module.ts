@@ -12,34 +12,36 @@ import {RoleService} from "./custom/role.service";
 import {VocabularyService} from "./custom/vocabulary.service";
 import {TaxonomyService} from "./custom/taxonomy.service";
 import {NodeService} from "./custom/node.service";
+import {FriendService} from "./custom/friend.service";
 
 
 @NgModule({
-    providers: [
-        ErrorHandler
-    ]
+	providers: [
+		ErrorHandler
+	]
 })
 
 export class ApiModule {
-    static forRoot(internalStorageProvider: any = {
-        provide: InternalStorage,
-        useClass: CookieBrowser
-    }): ModuleWithProviders {
-        return {
-            ngModule: ApiModule,
-            providers: [
-                AppService,
-                AuthService,
-                JSONSearchParams,
-                AppModels,
-                VocabularyService,
-                NodeService,
-                TaxonomyService,
-                UserService,
-                RoleService,
-                internalStorageProvider,
-                {provide: AppStorage, useClass: StorageBrowser}
-            ]
-        };
-    }
+	static forRoot(internalStorageProvider: any = {
+		provide: InternalStorage,
+		useClass: CookieBrowser
+	}): ModuleWithProviders {
+		return {
+			ngModule: ApiModule,
+			providers: [
+				AppService,
+				AuthService,
+				JSONSearchParams,
+				AppModels,
+				VocabularyService,
+				NodeService,
+				TaxonomyService,
+				UserService,
+				RoleService,
+				FriendService,
+				internalStorageProvider,
+				{provide: AppStorage, useClass: StorageBrowser}
+			]
+		};
+	}
 }

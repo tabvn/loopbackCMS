@@ -6,37 +6,37 @@ import {MainService} from "../../shared/services/main.service";
 import {PageMessage} from "../../shared/models/page-message";
 
 @Component({
-    selector: 'app-profile',
-    templateUrl: './profile.component.html',
-    styleUrls: ['./profile.component.scss']
+	selector: 'app-profile',
+	templateUrl: './profile.component.html',
+	styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
 
-    model: User = new User();
+	model: User = new User();
 
-    message: PageMessage = new PageMessage();
+	message: PageMessage = new PageMessage();
 
-    constructor(private mainService: MainService,
-                private route: ActivatedRoute,
-                private userService: UserService) {
+	constructor(private mainService: MainService,
+							private route: ActivatedRoute,
+							private userService: UserService) {
 
-    }
+	}
 
-    ngOnInit() {
+	ngOnInit() {
 
-        let username = this.route.snapshot.params['id'];
-        this.userService.findOne({where: {username: username}}).subscribe(user => {
-            this.model = user as User;
-        }, err => {
-            this.message = {
-                type: "danger",
-                text: err.message,
-                dismissible: true
-            };
+		let userId = this.route.snapshot.params['id'];
+		this.userService.findById(userId).subscribe(user => {
+			this.model = user as User;
+		}, err => {
+			this.message = {
+				type: "danger",
+				text: err.message,
+				dismissible: true
+			};
 
 
-        });
+		});
 
-    }
+	}
 
 }

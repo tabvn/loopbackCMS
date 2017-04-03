@@ -1,11 +1,19 @@
 {
   "name": "friend",
   "base": "PersistedModel",
-  "idInjection": true,
+  "idInjection": false,
+  "forceId": false,
   "options": {
     "validateUpsert": true
   },
-  "properties": {},
+  "properties": {
+    "users": {
+      "type": [
+        "string"
+      ],
+      "required": true
+    }
+  },
   "validations": [],
   "relations": {},
   "acls": [],

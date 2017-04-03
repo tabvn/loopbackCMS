@@ -7,11 +7,13 @@ import {LoginComponent} from "./users/login/login.component";
 import {RegisterComponent} from "./users/register/register.component";
 import {BlogDetailComponent} from "./blog/blog-detail/blog-detail.component";
 import {ProfileComponent} from "./users/profile/profile.component";
+import {FriendsComponent} from "./users/friends/friends.component";
 const appRoutes: Routes = [
     {path: 'home', component: HomeComponent},
     {path: 'blog', component: BlogComponent},
     {path: 'node/:id', component: BlogDetailComponent},
     {path: 'user/:id', component: ProfileComponent},
+    {path: 'user/:id/friends', component: FriendsComponent},
     {path: 'login', component: LoginComponent},
     {path: 'register', component: RegisterComponent},
     {path: '', redirectTo: '/home', pathMatch: 'full'},

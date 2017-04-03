@@ -63,6 +63,21 @@ export class NodeService extends BaseService {
         return result;
     }
 
+    public addMedia(id: any, data: any = {}, options: any = {}): Observable<any> {
+        let _method: string = "POST";
+        let _url: string = ApiConfig.getPath() + "/" + ApiConfig.getApiVersion() +
+            "/nodes/:id/images";
+        let _routeParams: any = {
+            id: id
+        };
+        let _postBody: any = {
+            data: data
+        };
+        let _urlParams: any = {};
+        let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+        return result;
+    }
+
     public getModelName() {
         return 'Node';
     }

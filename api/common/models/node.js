@@ -7,16 +7,15 @@ module.exports = function (node) {
             return next();
         }
 
+        console.log(ctx);
+
+
         if (ctx.instance) {
             // Create new Entity
+
         } else {
-
-            // update Entity
-            var data = JSON.parse(JSON.stringify(ctx.data));
-
-            node.updateRelationData(ctx, data, "taxonomies", "taxonomyId", "taxonomy_node");
-            node.updateRelationData(ctx, data, "images", "mediaId", "media_link");
-
+            node.updateRelationData(ctx, "taxonomies", "taxonomyId", "taxonomy_node");
+            node.updateRelationData(ctx, "images", "mediaId", "media_link");
 
         }
         return next();
@@ -40,8 +39,19 @@ module.exports = function (node) {
         });
     };
 
-    node.updateRelationData = function (ctx, data, relationKey, idKey, relationModel) {
+    node.updateRelationData = function (ctx, relationKey, idKey, relationModel) {
 
+        var id = null;
+        var data = null;
+
+        if (ctx.instance) {
+            id = ctx.instance.id;
+            data = JSON.parse(JSON.stringify(ctx.instance));
+        }
+        else {
+            id = ctx.where.id;
+            data = JSON.parse(JSON.stringify(ctx.data));
+        }
         if (typeof data[relationKey] !== "undefined" && data[relationKey] !== null && data[relationKey].length) {
 
             var items = [];
@@ -49,7 +59,7 @@ module.exports = function (node) {
             if (data && data[relationKey]) {
                 data[relationKey].forEach(function (item) {
                     var itemObject = {
-                        refId: ctx.where.id,
+                        refId: id,
                         refType: ctx.Model.modelName
                     };
 
@@ -62,7 +72,7 @@ module.exports = function (node) {
             if (items.length) {
 
                 node.app.models[relationModel].destroyAll({
-                    refId: ctx.where.id,
+                    refId: id,
                     refType: ctx.Model.modelName
                 }, function (err) {
 
@@ -84,15 +94,15 @@ module.exports = function (node) {
 
                 });
             }
-        }else{
+        } else {
 
             node.app.models[relationModel].destroyAll({
-                refId: ctx.where.id,
+                refId: id,
                 refType: ctx.Model.modelName
             }, function (err) {
-               if(err !== null){
-                   console.log(err);
-               }
+                if (err !== null) {
+                    console.log(err);
+                }
             });
         }
 

@@ -33,7 +33,6 @@ export class NodeFormComponent implements OnInit {
         this.model.status = 1;
 
         if (this.selectedModel) {
-            console.log(this.selectedModel);
 
             this.model = this.selectedModel;
             this._selectedTaxonomies = this.model.taxonomies;
@@ -63,6 +62,8 @@ export class NodeFormComponent implements OnInit {
             this.nodeService.patchOrCreate(this.model).subscribe((res) => {
 
                 this.model.createdAt = res.createdAt;
+                this.model.id = res.id;
+
                 // create taxonomy relation
                 if (this.model.taxonomies && this.model.taxonomies.length) {
                     this.model.taxonomies.forEach((item) => {
@@ -78,6 +79,23 @@ export class NodeFormComponent implements OnInit {
                         });
                     });
                 }
+
+                if (this.model.images && this.model.images.length) {
+                    this.model.images.forEach((item) => {
+                        let data = {
+                            mediaId: item.mediaId,
+                            refId: res.id,
+                            refType: 'node'
+                        };
+
+
+                        this.nodeService.addMedia(res.id, data).subscribe(() => {
+
+                        });
+                    });
+                }
+
+
 
                 this.dialog.close(this.model);
                 this.selectedModel = null;

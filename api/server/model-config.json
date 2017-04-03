@@ -76,5 +76,9 @@
   "portfolio": {
     "dataSource": "db",
     "public": true
+  },
+  "friend": {
+    "dataSource": "db",
+    "public": true
   }
 }

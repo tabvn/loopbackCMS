@@ -85,7 +85,72 @@
         "__update_posts",
         "__destroy_posts"
       ]
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": [
+        "user_friends"
+      ]
     }
   ],
-  "methods": {}
+  "methods": {
+    "user_friends": {
+      "accepts": [
+        {
+          "arg": "id",
+          "type": "string",
+          "required": true,
+          "description": "User Id",
+          "http": {
+            "source": "path"
+          }
+        },
+        {
+          "arg": "limit",
+          "type": "number",
+          "required": false,
+          "description": "Limit number of friends to show",
+          "http": {
+            "source": "query"
+          }
+        },
+        {
+          "arg": "skip",
+          "type": "number",
+          "required": false,
+          "description": "Skip items",
+          "http": {
+            "source": "query"
+          }
+        },
+        {
+          "arg": "search",
+          "type": "string",
+          "required": false,
+          "description": "search user's friend",
+          "http": {
+            "source": "query"
+          }
+        }
+      ],
+      "returns": [
+        {
+          "arg": "result",
+          "type": "object",
+          "root": true,
+          "description": ""
+        }
+      ],
+      "description": "Find User's Friend",
+      "http": [
+        {
+          "path": "/:id/friends",
+          "verb": "get"
+        }
+      ]
+    }
+  }
 }

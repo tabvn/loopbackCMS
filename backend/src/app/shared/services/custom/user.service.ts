@@ -599,6 +599,29 @@ export class UserService extends BaseService {
         return result;
     }
 
+
+    public getUserFriends(id: any, limit: number = 20, skip: number = 0, search: string = ""): Observable<any> {
+        let _method: string = "GET";
+        let _url: string = ApiConfig.getPath() + "/" + ApiConfig.getApiVersion() +
+          "/users/:id/friends";
+        let _routeParams: any = {
+            id: id
+        };
+        let _postBody: any = {};
+        let _urlParams: any = {};
+        //if (filter) _urlParams.filter = filter;
+
+        _urlParams.limit = limit;
+        _urlParams.skip = skip;
+        _urlParams.search = search;
+
+        let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+        return result;
+    }
+
+
+
+
     public removeAvatar(id: any) {
         let _method: string = "DELETE";
         let _url: string = ApiConfig.getPath() + "/" + ApiConfig.getApiVersion() +

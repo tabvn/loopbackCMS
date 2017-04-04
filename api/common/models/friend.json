@@ -2,10 +2,10 @@
   "name": "friend",
   "base": "PersistedModel",
   "idInjection": false,
-  "forceId": false,
   "options": {
     "validateUpsert": true
   },
+  "forceId": false,
   "properties": {
     "users": {
       "type": [
